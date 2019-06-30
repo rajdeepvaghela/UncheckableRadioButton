@@ -1,0 +1,28 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
+
+publish {
+    def groupProjectID = 'com.rdapps.uncheckableradiobutton'
+    def artifactProjectID = 'UncheckableRadioButton'
+    def publishVersionID = '0.0.1'
+
+    userOrg = 'rajdeepvaghela'
+    repoName = 'UncheckableRadioButton'
+    groupId = groupProjectID
+    artifactId = artifactProjectID
+    publishVersion = publishVersionID
+    desc = 'A generic adapter which can be used for Spinner and AutoCompleteTextView, with Hint support and custom object support.'
+    website = 'https://gitlab.com/rajdeepsvaghela/genericadapter'
+}
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 28
+    }
+}
+
+dependencies {
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+}
