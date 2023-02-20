@@ -1,53 +1,40 @@
-package com.rdapps.uncheckableradiobutton;
+package com.rdapps.uncheckableradiobutton
 
-import android.content.Context;
-import android.content.res.TypedArray;
-import android.support.v7.widget.AppCompatRadioButton;
-import android.util.AttributeSet;
-import android.widget.RadioGroup;
+import android.content.Context
+import android.util.AttributeSet
+import android.widget.RadioGroup
+import androidx.appcompat.widget.AppCompatRadioButton
 
-public class UncheckableRadioButton extends AppCompatRadioButton {
+class UncheckableRadioButton @JvmOverloads constructor(
+    context: Context, attrs: AttributeSet? = null
+) : AppCompatRadioButton(context, attrs) {
+    private var uncheckable = false
 
-    private boolean uncheckable = false;
-
-    public UncheckableRadioButton(Context context) {
-        super(context);
+    init {
+        init(context, attrs)
     }
 
-    public UncheckableRadioButton(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        init(context, attrs);
+    private fun init(context: Context, attrs: AttributeSet?) {
+        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.UncheckableRadioButton)
+        uncheckable = typedArray.getBoolean(R.styleable.UncheckableRadioButton_uncheckable, false)
+        typedArray.recycle()
     }
 
-    public UncheckableRadioButton(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        init(context, attrs);
-    }
-
-    private void init(Context context, AttributeSet attrs) {
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.UncheckableRadioButton);
-        uncheckable = typedArray.getBoolean(R.styleable.UncheckableRadioButton_uncheckable, false);
-        typedArray.recycle();
-    }
-
-    @Override
-    public void toggle() {
-
+    override fun toggle() {
         if (uncheckable) {
-            if (isChecked()) {
-                if (getParent() != null && getParent() instanceof RadioGroup) {
-                    ((RadioGroup) getParent()).clearCheck();
+            if (isChecked) {
+                if (parent != null && parent is RadioGroup) {
+                    (parent as RadioGroup).clearCheck()
                 }
             } else {
-                super.toggle();
+                super.toggle()
             }
         } else {
-            super.toggle();
+            super.toggle()
         }
     }
 
-    @Override
-    public CharSequence getAccessibilityClassName() {
-        return UncheckableRadioButton.class.getName();
+    override fun getAccessibilityClassName(): CharSequence {
+        return UncheckableRadioButton::class.java.name
     }
 }
